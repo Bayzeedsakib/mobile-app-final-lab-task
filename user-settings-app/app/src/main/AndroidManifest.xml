@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.university.usersettings">
+    package="com.example.usersettingsapp">
 
     <application
         android:allowBackup="true"
@@ -11,14 +11,14 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <activity
-            android:name=".ProfileActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.example.usersettingsapp.ProfileActivity"
+            android:parentActivityName="com.example.usersettingsapp.MainActivity" />
 
         <activity
-            android:name=".SettingsViewerActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.example.usersettingsapp.SettingsViewerActivity"
+            android:parentActivityName="com.example.usersettingsapp.MainActivity" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.usersettingsapp.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

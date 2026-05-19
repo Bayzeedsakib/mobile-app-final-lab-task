@@ -1,4 +1,4 @@
-package com.university.usersettings
+package com.example.usersettingsapp
 
 import android.content.Context
 import android.content.Intent
