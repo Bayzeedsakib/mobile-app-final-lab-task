@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -49,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
             progress.visibility = View.VISIBLE
             auth.signInWithEmailAndPassword(email, pass)
-                .addOnCompleteListener { task ->
+                .addOnCompleteListener { task: Task<AuthResult> ->
                     progress.visibility = View.GONE
                     if (task.isSuccessful) {
                         val intent = Intent(this, HomeActivity::class.java)
@@ -63,4 +65,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
+
+
 

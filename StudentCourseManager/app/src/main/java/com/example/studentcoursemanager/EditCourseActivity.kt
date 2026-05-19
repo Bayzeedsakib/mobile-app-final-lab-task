@@ -6,15 +6,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.FirebaseDatabase
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 
 class EditCourseActivity : AppCompatActivity() {
 
@@ -23,9 +21,7 @@ class EditCourseActivity : AppCompatActivity() {
         android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ANDROID_ID)
             ?: "anonymous"
     }
-    private val dbRef by lazy {
-        FirebaseDatabase.getInstance().getReference("students").child(studentNode).child("courses")
-    }
+    // dbRef will be obtained locally inside methods to avoid top-level type inference issues
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +102,7 @@ class EditCourseActivity : AppCompatActivity() {
         showProgress(true)
 
         val updated = Course(id = course.id, name = name, code = code, instructor = instructor, credits = credits, schedule = schedule, room = room, semester = semester)
+        val dbRef = FirebaseDatabase.getInstance().getReference("students").child(studentNode).child("courses")
         dbRef.child(course.id).setValue(updated).addOnCompleteListener { task ->
             showProgress(false)
             if (task.isSuccessful) {
@@ -140,6 +137,7 @@ class EditCourseActivity : AppCompatActivity() {
             .setTitle("Delete course")
             .setMessage("Are you sure you want to delete this course?")
             .setPositiveButton("Delete") { _, _ ->
+                val dbRef = FirebaseDatabase.getInstance().getReference("students").child(studentNode).child("courses")
                 dbRef.child(course.id).removeValue().addOnCompleteListener { task ->
                     if (task.isSuccessful) Toast.makeText(this, "Course deleted", Toast.LENGTH_SHORT).show()
                     finish()
@@ -154,5 +152,9 @@ class EditCourseActivity : AppCompatActivity() {
         pb.visibility = if (show) View.VISIBLE else View.GONE
     }
 }
+
+
+
+
 
 
