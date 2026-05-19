@@ -10,6 +10,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 
@@ -60,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
 
             progress.visibility = View.VISIBLE
             auth.createUserWithEmailAndPassword(email, pass)
-                .addOnCompleteListener { task ->
+                .addOnCompleteListener { task: Task<AuthResult> ->
                     progress.visibility = View.GONE
                     if (task.isSuccessful) {
                         // update display name
@@ -79,4 +81,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
 
