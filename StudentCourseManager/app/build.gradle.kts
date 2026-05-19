@@ -44,6 +44,10 @@ dependencies {
     // Firebase BoM and Realtime Database
     implementation(platform("com.google.firebase:firebase-bom:32.3.0"))
     implementation("com.google.firebase:firebase-database-ktx")
+    // UI components used by the app
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.cardview:cardview:1.0.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
