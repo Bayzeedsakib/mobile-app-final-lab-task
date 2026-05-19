@@ -7,15 +7,15 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.tasks.Task
 
 class ForgotPasswordActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
+    private lateinit var auth: com.google.firebase.auth.FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
-        auth = FirebaseAuth.getInstance()
+        auth = com.google.firebase.auth.FirebaseAuth.getInstance()
 
         val emailInput = findViewById<EditText>(R.id.inputEmail)
         val sendBtn = findViewById<Button>(R.id.btnSendReset)
@@ -29,7 +29,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             }
             progress.visibility = View.VISIBLE
             auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener { task ->
+                .addOnCompleteListener { task: Task<Void> ->
                     progress.visibility = View.GONE
                     if (task.isSuccessful) {
                         Snackbar.make(sendBtn, "Reset email sent. Check your inbox.", Snackbar.LENGTH_LONG).show()
@@ -41,4 +41,5 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
     }
 }
+
 

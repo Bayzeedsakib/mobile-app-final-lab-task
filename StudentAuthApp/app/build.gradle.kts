@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+// Apply Google services plugin to process google-services.json at build time
+apply(plugin = "com.google.gms.google-services")
+
 android {
     namespace = "com.example.studentauthapp"
     compileSdk {
