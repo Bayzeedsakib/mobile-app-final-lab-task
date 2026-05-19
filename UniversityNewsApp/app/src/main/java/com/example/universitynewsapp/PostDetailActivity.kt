@@ -127,16 +127,24 @@ class PostDetailActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 authorProgressBar.visibility = View.GONE
+                // log the exception for debugging
+                e.printStackTrace()
             }
         }
     }
 
     private fun handleError(exception: Exception) {
         when (exception) {
-            is HttpException -> postTitle.text = "Error: ${exception.code()}"
+            is HttpException -> {
+                val status = exception.response()?.code() ?: -1
+                postTitle.text = "Error: $status"
+            }
             is IOException -> postTitle.text = "Network error"
             else -> postTitle.text = "Error: ${exception.message}"
         }
+        exception.printStackTrace()
     }
 }
+
+
 

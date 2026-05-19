@@ -121,7 +121,8 @@ class UserProfileActivity : AppCompatActivity() {
                 postsProgressBar.visibility = View.GONE
                 postAdapter.submitList(posts)
             } catch (e: HttpException) {
-                showError("Server error: ${e.code()}")
+                val status = e.response()?.code() ?: -1
+                showError("Server error: $status")
             } catch (e: IOException) {
                 showError("Network error. Check your connection.")
             } catch (e: Exception) {
@@ -180,4 +181,6 @@ class UserProfileActivity : AppCompatActivity() {
         errorText.text = message
     }
 }
+
+
 

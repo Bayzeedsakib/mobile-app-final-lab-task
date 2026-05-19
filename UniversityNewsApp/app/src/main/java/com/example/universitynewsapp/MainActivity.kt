@@ -101,6 +101,9 @@ class MainActivity : AppCompatActivity() {
         errorLayout.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = false
 
+        // show swipe refresh indicator while loading
+        swipeRefreshLayout.isRefreshing = true
+
         lifecycleScope.launch {
             try {
                 allPosts = repository.getAllPosts()
@@ -108,11 +111,16 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.visibility = View.VISIBLE
                 adapter.submitList(allPosts)
             } catch (e: HttpException) {
-                showError("Server error: ${e.code()}")
+                // use response()?.code() to get HTTP status code safely
+                val status = e.response()?.code() ?: -1
+                showError("Server error: $status")
             } catch (e: IOException) {
                 showError("Network error. Check your connection.")
             } catch (e: Exception) {
                 showError("Something went wrong: ${e.message}")
+            } finally {
+                // always hide the swipe refresh indicator
+                swipeRefreshLayout.isRefreshing = false
             }
         }
     }
